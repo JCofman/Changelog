@@ -1,134 +1,8 @@
 import * as vscode from 'vscode';
 import axios from 'axios';
-import { URL } from 'url';
+import * as semver from 'semver';
 
-interface NpmsIODataResponse {
-  data: NpmsIOData;
-}
-interface NpmsIOData {
-  analyzedAt: string;
-  collected: Collected;
-  evaluation: Evaluation;
-  score: Score;
-}
-interface Collected {
-  metadata: Metadata;
-  npm: Npm;
-  source: Source;
-}
-interface Metadata {
-  name: string;
-  scope: string;
-  version: string;
-  description: string;
-  keywords: string[];
-  date: string;
-  publisher: Publisher;
-  maintainers: MaintainersItem[];
-  repository: Repository;
-  links: Links;
-  license: string;
-  dependencies: Dependencies;
-  releases: ReleasesItem[];
-  hasSelectiveFiles: boolean;
-}
-interface Publisher {
-  username: string;
-  email: string;
-}
-interface MaintainersItem {
-  username: string;
-  email: string;
-}
-interface Repository {
-  type: string;
-  url: string;
-  directory: string;
-}
-interface Links {
-  npm: string;
-  homepage: string;
-  repository: string;
-  bugs: string;
-}
-interface Dependencies {
-  'loose-envify': string;
-  'object-assign': string;
-  'prop-types': string;
-  scheduler: string;
-}
-interface ReleasesItem {
-  from: string;
-  to: string;
-  count: number;
-}
-interface Npm {
-  downloads: DownloadsItem[];
-  dependentsCount: number;
-  starsCount: number;
-}
-interface DownloadsItem {
-  from: string;
-  to: string;
-  count: number;
-}
-interface Source {
-  files: Files;
-  linters: string[];
-  coverage: number;
-}
-interface Files {
-  readmeSize: number;
-  testsSize: number;
-  hasChangelog: boolean;
-}
-interface Evaluation {
-  quality: Quality;
-  popularity: Popularity;
-  maintenance: Maintenance;
-}
-interface Quality {
-  carefulness: number;
-  tests: number;
-  health: number;
-  branding: number;
-}
-interface Popularity {
-  communityInterest: number;
-  downloadsCount: number;
-  downloadsAcceleration: number;
-  dependentsCount: number;
-}
-interface Maintenance {
-  releasesFrequency: number;
-  commitsFrequency: number;
-  openIssues: number;
-  issuesDistribution: number;
-}
-interface Score {
-  final: number;
-  detail: Detail;
-}
-interface Detail {
-  quality: number;
-  popularity: number;
-  maintenance: number;
-}
-interface ChangelogMDDataResponse {
-  data: ChangelogMDData;
-}
-interface ChangelogMDData {
-  crawledAt: string;
-  href: string;
-  repo: string;
-  changelog: string;
-  contents: ContentsItem[];
-}
-interface ContentsItem {
-  version: string;
-  date: string;
-  body: string;
-}
+import { URL } from 'url';
 
 /**
  * This function generates the hover content based on the fetched information.
@@ -144,10 +18,10 @@ function createHoverInformationString(
 ) {
   if (currentPackageVersion) {
     let hoverInformation = new vscode.MarkdownString(
-      `--- \n\n # Changelog \n\n \n\n ${changelogLink} \n\n \n\n`
+      `\n\n ### Changelog \n\n \n\n ${changelogLink} \n\n \n\n`
     );
     changelogData.some(changelogItem => {
-      if (changelogItem.version <= currentPackageVersion) {
+      if (semver.lte(changelogItem.version, currentPackageVersion)) {
         return false;
       }
       hoverInformation = hoverInformation.appendMarkdown(
@@ -191,43 +65,40 @@ async function findChangeLog(
 // this method is called when your extension is activated
 // your extension is activated the very first time the command is executed
 export function activate(context: vscode.ExtensionContext) {
-  vscode.languages.registerHoverProvider(
-    { language: 'json', scheme: 'file', pattern: '**/package.json' },
-    {
-      async provideHover(document, position, token) {
-        // 1. extract package which gets hovered
-        const hoveredPackageJSONVersionAndName = getHoveredPackageVersionAndName(
-          document,
-          position
+  vscode.languages.registerHoverProvider('*', {
+    async provideHover(document, position, token) {
+      // 1. extract package which gets hovered
+      const hoveredPackageJSONVersionAndName = getHoveredPackageVersionAndName(
+        document,
+        position
+      );
+      if (hoveredPackageJSONVersionAndName !== null) {
+        const [
+          hoveredPackageName,
+          hoveredPackageVersion
+        ] = hoveredPackageJSONVersionAndName;
+
+        // 2. find the GitHub repository information to the package
+        const githubRepoNameAndOwner = await collectGitHubRepoNameAndOwner(
+          hoveredPackageName
         );
-        if (hoveredPackageJSONVersionAndName !== null) {
-          const [
-            hoveredPackageName,
+
+        // 3. find the changelog to the repository
+        if (
+          githubRepoNameAndOwner !== null &&
+          githubRepoNameAndOwner !== undefined
+        ) {
+          const changelog = await findChangeLog(
+            githubRepoNameAndOwner,
             hoveredPackageVersion
-          ] = hoveredPackageJSONVersionAndName;
-
-          // 2. find the GitHub repository information to the package
-          const githubRepoNameAndOwner = await collectGitHubRepoNameAndOwner(
-            hoveredPackageName
           );
-
-          // 3. find the changelog to the repository
-          if (
-            githubRepoNameAndOwner !== null &&
-            githubRepoNameAndOwner !== undefined
-          ) {
-            const changelog = await findChangeLog(
-              githubRepoNameAndOwner,
-              hoveredPackageVersion
-            );
-            if (changelog !== undefined) {
-              return new vscode.Hover(changelog);
-            }
+          if (changelog !== undefined) {
+            return new vscode.Hover(changelog);
           }
         }
       }
     }
-  );
+  });
 }
 
 function getHoveredPackageVersionAndName(
