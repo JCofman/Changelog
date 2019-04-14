@@ -24,6 +24,7 @@ function createHoverInformationString(
       if (semver.lte(changelogItem.version, currentPackageVersion)) {
         return false;
       }
+
       hoverInformation = hoverInformation.appendMarkdown(
         `${changelogItem.version}\n ${changelogItem.body}\n\n`
       );
@@ -35,7 +36,8 @@ function createHoverInformationString(
 }
 
 /**
- *
+ * fetches changelog data from https://changelogs.md/api
+ * and returns a formatted version as a string. Prints error message on error.
  * @param githubNameAndOwnerPath
  * @param hoveredPackageVersion
  */
@@ -72,7 +74,8 @@ export function activate(context: vscode.ExtensionContext) {
         document,
         position
       );
-      if (hoveredPackageJSONVersionAndName !== null) {
+
+      if (hoveredPackageJSONVersionAndName !== undefined) {
         const [
           hoveredPackageName,
           hoveredPackageVersion
@@ -104,7 +107,7 @@ export function activate(context: vscode.ExtensionContext) {
 function getHoveredPackageVersionAndName(
   document: vscode.TextDocument,
   position: vscode.Position
-): [string, string] | null {
+): [string, string] | undefined {
   const lineText = document.lineAt(position.line).text;
   const packageName = lineText.match(/"[a-zA-Z-@]+"/);
   const packageVersion = lineText.match(/\d+.\d+.\d+/);
@@ -120,8 +123,8 @@ function getHoveredPackageVersionAndName(
       packageVersion[0].replace(/"/g, '')
     ];
   }
-  return null;
 }
+
 /**
  * Fetches the npms.io API and tries to collect the GitHub repo and owner
  * @param packageName
@@ -161,14 +164,16 @@ async function collectGitHubRepoNameAndOwner(packageName: string) {
     );
   }
 }
+
 /**
  * Extracts the path (Name and Owner) of the provided repository link.
  * @param repositoryLink
  */
-function getRepositoryNameAndOwnerPath(repositoryLink: string): string | null {
+export function getRepositoryNameAndOwnerPath(
+  repositoryLink: string
+): string | undefined {
   if (repositoryLink.length > 0) {
     const repoURL = new URL(repositoryLink);
     return repoURL.pathname;
   }
-  return null;
 }
