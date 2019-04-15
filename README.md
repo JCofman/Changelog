@@ -4,7 +4,6 @@
     <img alt="changelog icon" src="https://github.com/JCofman/Changelog/blob/master/images/icon.png" width="300" />
 </p>
 
-
 This vscode extension tries to add changelog information to the hovered `package.json` package dependency.
 
 ## Features
@@ -23,7 +22,7 @@ This extension tries to fetch the changelog data from [changelog.md](https://cha
 
 ## Release Notes
 
-### 1.0.0
+### 0.0.1
 
 Initial release of changelog extension
 
