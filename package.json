@@ -1,8 +1,26 @@
 {
   "name": "changelog",
-  "displayName": "changelog",
-  "description": "This extension provides additional package.json changelog hover hint information.",
+  "displayName": "Changelog",
+  "description": "This extension provides additional package.json changelog hover information.",
+  "publisher": "jacobcofman",
   "version": "0.0.1",
+  "author": {
+    "name": "jacobcofman"
+  },
+  "homepage": "https://github.com/JCofman/Changelog",
+  "bugs": {
+    "url": "https://github.com/JCofman/Changelog/issues",
+    "email": "cofman.jacob@gmail.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/JCofman/Changelog.git"
+  },
+  "icon": "images/icon.png",
+  "galleryBanner": {
+    "color": "#000",
+    "theme": "dark"
+  },
   "engines": {
     "vscode": "^1.31.0"
   },
