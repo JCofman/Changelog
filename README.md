@@ -1,6 +1,6 @@
 # Changelog README
 
-<p align="center" style="background-color:black;">
+<p align="center">
     <img alt="changelog icon" src="images/icon.png" width="300" />
 </p>
 
@@ -21,6 +21,10 @@ This extension tries to fetch the changelog data from [changelog.md](https://cha
 - This extension uses the API from https://changelogs.md/ created by [Nathan Peck](https://github.com/nathanpeck)
 
 ## Release Notes
+
+### 0.0.2
+
+Publish with new icon
 
 ### 0.0.1
 
