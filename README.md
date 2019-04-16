@@ -1,7 +1,7 @@
 # Changelog README
 
 <p align="center">
-    <img alt="changelog icon" src="images/icon.png" width="300" />
+    <img alt="changelog icon" src="https://imgur.com/8OAreEN" width="300" />
 </p>
 
 This vscode extension tries to add changelog information to the hovered `package.json` package dependency.
