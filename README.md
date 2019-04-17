@@ -14,7 +14,7 @@ Just hover over a `package.json` dependency as seen in this GIF and the extensio
 
 ## 👀 Known Issues
 
-This extension tries to fetch the changelog data from [changelog.md](https://changelogs.md/). Please be aware that some projects don't provide a changelog or manage it at different places. This extension currently doesn't parse GitHub releases.
+This extension tries to fetch the changelog data from [changelog.md](https://changelogs.md/). Please be aware that some projects don't provide a changelog or manage it at different places.
 
 ## 👌Credits
 
@@ -22,6 +22,10 @@ This extension tries to fetch the changelog data from [changelog.md](https://cha
 - Big thx to [Filipe Santos Correa](https://github.com/Safi1012) for the icon 😊
 
 ## Release Notes
+
+### 0.0.3
+
+Tries to fetch GitHub releases if no changelog was found.
 
 ### 0.0.2
 

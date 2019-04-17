@@ -45,12 +45,14 @@ async function findChangeLog(
   githubNameAndOwnerPath: string,
   hoveredPackageVersion: string
 ) {
-  var changelog: ChangelogMDDataResponse;
+  var changelog: any;
+  var hoverMessage: any;
   try {
     changelog = await axios.get(
       `https://changelogs.md/api/github${githubNameAndOwnerPath}`
     );
-    const hoverMessage = createHoverInformationString(
+
+    hoverMessage = createHoverInformationString(
       hoveredPackageVersion,
       changelog.data.changelog &&
         `https://github.com/${githubNameAndOwnerPath}/blob/master/CHANGELOG.md`,
@@ -58,8 +60,26 @@ async function findChangeLog(
     );
     return hoverMessage;
   } catch (error) {
-    vscode.window.showErrorMessage(
-      `Couldn't find a changelog something went wrong! ${error.data.message}`
+    changelog = await axios.get(
+      `https://api.github.com/repos${githubNameAndOwnerPath}/releases`
+    );
+    if (changelog.status === 200 && changelog.data[0].body.length > 0) {
+      const normalizedReleaseItems: ContentsItem[] = changelog.data.map(
+        (release: GitHubReleases) => ({
+          version: release.tag_name.substring(1),
+          date: release.created_at,
+          body: release.body
+        })
+      );
+      hoverMessage = createHoverInformationString(
+        hoveredPackageVersion,
+        `https://github.com${githubNameAndOwnerPath}/releases`,
+        normalizedReleaseItems
+      );
+      return hoverMessage;
+    }
+    return new vscode.MarkdownString(
+      `Couldn't find a changelog something went wrong! Either we couldn't detect a changelog or the fetch request to the github api failed.`
     );
   }
 }
