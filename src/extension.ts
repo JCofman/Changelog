@@ -87,7 +87,7 @@ async function findChangeLog(
 // this method is called when your extension is activated
 // your extension is activated the very first time the command is executed
 export function activate(context: vscode.ExtensionContext) {
-  vscode.languages.registerHoverProvider('*', {
+  vscode.languages.registerHoverProvider({ pattern: '**/package.json' }, {
     async provideHover(document, position, token) {
       // 1. extract package which gets hovered
       const hoveredPackageJSONVersionAndName = getHoveredPackageVersionAndName(
