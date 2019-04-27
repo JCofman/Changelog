@@ -27,9 +27,9 @@ Since the current GitHub API has a rate limit of 60 requests per ip address the 
 
 ### 0.0.4
 
-- Should fix issue #4 it now determines whether the latest release has some valid content to show.
+- Should fix issue [#4](https://github.com/JCofman/Changelog/issues/4) it now determines whether the latest release has some valid content
 
-- Escape hatch for issue #1 to avoid unnecessary fetching in files other then `package.json`
+- Escape hatch for issue [#1](https://github.com/JCofman/Changelog/issues/1) to avoid unnecessary fetching in files other then `package.json`
 
 ### 0.0.3
 
