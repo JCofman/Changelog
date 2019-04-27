@@ -63,7 +63,11 @@ async function findChangeLog(
     changelog = await axios.get(
       `https://api.github.com/repos${githubNameAndOwnerPath}/releases`
     );
-    if (changelog.status === 200 && changelog.data[0].body.length > 0) {
+    // check whether the newest released version has some body content
+    if (
+      changelog.status === 200 &&
+      changelog.data[changelog.data.length - 1].body.length > 0
+    ) {
       const normalizedReleaseItems: ContentsItem[] = changelog.data.map(
         (release: GitHubReleases) => ({
           version: release.tag_name.substring(1),
@@ -88,7 +92,11 @@ async function findChangeLog(
 // your extension is activated the very first time the command is executed
 export function activate(context: vscode.ExtensionContext) {
   vscode.languages.registerHoverProvider('*', {
-    async provideHover(document, position, token) {
+    async provideHover(document, position) {
+      // todo quick win as mentioned here https://github.com/JCofman/Changelog/pull/2
+      if (!document.fileName.endsWith('package.json')) {
+        return undefined;
+      }
       // 1. extract package which gets hovered
       const hoveredPackageJSONVersionAndName = getHoveredPackageVersionAndName(
         document,

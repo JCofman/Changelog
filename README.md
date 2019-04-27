@@ -14,7 +14,9 @@ Just hover over a `package.json` dependency as seen in this GIF and the extensio
 
 ## 👀 Known Issues
 
-This extension tries to fetch the changelog data from [changelog.md](https://changelogs.md/). Please be aware that some projects don't provide a changelog or manage it at different places.
+This extension tries to fetch the changelog data from [changelog.md](https://changelogs.md/) and from the [GitHub API](https://developer.github.com/v3).
+
+Since the current GitHub API has a rate limit of 60 requests per ip address the releases requests break and you have to wait one hour untill the extension works again appropriately. Please be aware that some projects don't provide a changelog or manage it at different places.
 
 ## 👌Credits
 
@@ -23,17 +25,23 @@ This extension tries to fetch the changelog data from [changelog.md](https://cha
 
 ## Release Notes
 
+### 0.0.4
+
+- Should fix issue #4 it now determines whether the latest release has some valid content to show.
+
+- Escape hatch for issue #1 to avoid unnecessary fetching in files other then `package.json`
+
 ### 0.0.3
 
-Tries to fetch GitHub releases if no changelog was found.
+- Tries to fetch GitHub releases if no changelog was found.
 
 ### 0.0.2
 
-Publish with new icon
+- Publish with new icon
 
 ### 0.0.1
 
-Initial release of changelog extension
+- Initial release of changelog extension
 
 ---
 
