@@ -4,9 +4,9 @@
 
 ### Fixed
 
-- Should fix issue #4 it now determines whether the latest release has some valid content
+- Should fix issue [#4](https://github.com/JCofman/Changelog/issues/4) it now determines whether the latest release has some valid content
 
-- Escape hatch for issue #1 to avoid unnecessary fetching in files other then `package.json`
+- Escape hatch for issue [#1](https://github.com/JCofman/Changelog/issues/1) to avoid unnecessary fetching in files other then `package.json`
 
 ## [0.0.3] - 2019-05-17
 
