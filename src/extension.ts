@@ -132,12 +132,12 @@ export function activate(context: vscode.ExtensionContext) {
   });
 }
 
-function getHoveredPackageVersionAndName(
+export function getHoveredPackageVersionAndName(
   document: vscode.TextDocument,
   position: vscode.Position
 ): [string, string] | undefined {
   const lineText = document.lineAt(position.line).text;
-  const packageName = lineText.match(/"[a-zA-Z-@]+"/);
+  const packageName = lineText.match(/"[a-zA-Z-@\/]+"/);
   const packageVersion = lineText.match(/\d+.\d+.\d+/);
 
   if (
@@ -167,7 +167,7 @@ async function collectGitHubRepoNameAndOwner(packageName: string) {
   // 2. fetch package information
   try {
     const packageInfo: NpmsIODataResponse = await axios.get(
-      `https://api.npms.io/v2/package/${packageName}`
+      `https://api.npms.io/v2/package/${encodeURIComponent(packageName)}`
     );
 
     // 3. check whether a github repo link is available and extract the link

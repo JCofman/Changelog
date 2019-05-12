@@ -25,6 +25,11 @@ Since the current GitHub API has a rate limit of 60 requests per ip address the 
 
 ## Release Notes
 
+### 0.0.5
+
+- update package ts-loader
+- Should now also fetch scoped packages
+
 ### 0.0.4
 
 - Should fix issue [#4](https://github.com/JCofman/Changelog/issues/4) it now determines whether the latest release has some valid content

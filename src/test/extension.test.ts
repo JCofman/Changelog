@@ -26,13 +26,42 @@ suite('Extension Tests', function() {
     assert.equal(actualRepoNameAndOwnerPath, expectedRepoNameAndOwnerPath);
   });
 
-  test('should match hovered document with score of 5', function() {
-    vscode.Hover;
-    const gitRepositoryLink = 'https://github.com/JCofman/Changelog';
-    const expectedRepoNameAndOwnerPath = '/JCofman/Changelog';
-    const actualRepoNameAndOwnerPath = changelogExtension.getRepositoryNameAndOwnerPath(
-      gitRepositoryLink
-    );
-    assert.equal(actualRepoNameAndOwnerPath, expectedRepoNameAndOwnerPath);
+  // this ensure that the tooltip will be shown under the default tooltip
+  test('should find package version and name from package.json document ', async function() {
+    const packageNames = [
+      ['@types/mocha', '5.2.6'],
+      ['ts-loader', '6.0.0'],
+      ['tslint', '5.16.0'],
+      ['typescript', '3.4.5']
+    ];
+    const doc = await vscode.workspace
+      .openTextDocument({
+        language: 'json',
+        content: `"@types/mocha": "^5.2.6",
+        "ts-loader": "^6.0.0",
+        "tslint": "^5.16.0",
+        "typescript": "^3.4.5",`
+      })
+      .then(doc => {
+        return doc;
+      });
+
+    packageNames.forEach((expectedPackageInfo, index) => {
+      const position = new vscode.Position(index, 1);
+      const packageInfo = changelogExtension.getHoveredPackageVersionAndName(
+        doc,
+        position
+      );
+      if (packageInfo === undefined) {
+        assert.fail(
+          `Should extract package name and version for following line ${
+            doc.lineAt(position.line).text
+          }`
+        );
+      } else {
+        assert.equal(packageInfo[0], expectedPackageInfo[0]);
+        assert.equal(packageInfo[1], expectedPackageInfo[1]);
+      }
+    });
   });
 });
