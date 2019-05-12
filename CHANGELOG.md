@@ -1,7 +1,5 @@
 # Change Log
 
-## unreleased
-
 ## 0.0.5 - 2019-05-27
 
 ### Changed
