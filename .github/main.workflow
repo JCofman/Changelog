@@ -4,6 +4,6 @@ workflow "Release Vscode Plugin " {
 }
 
 action "Vscode release plugin" {
-  uses = "JCofman/vscodeaction@v0.5-alpha"
+  uses = "JCofman/vscodeaction@v0.6-alpha"
   secrets = ["PUBLISH_TOKEN"]
 }
