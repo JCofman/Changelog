@@ -3,7 +3,7 @@
   "displayName": "Changelog",
   "description": "This extension provides additional package.json changelog hover information.",
   "publisher": "jacobcofman",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "author": {
     "name": "jacobcofman"
   },

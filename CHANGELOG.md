@@ -1,10 +1,10 @@
 # Change Log
 
-## 0.0.5 - 2019-05-27
+## 0.0.5 - 2019-07-05
 
 ### Changed
 
-- update package ts-loader
+- update packages ts-loader, webpack, tslint, typescript
 
 ### Added
 
