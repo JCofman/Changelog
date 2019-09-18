@@ -6,6 +6,13 @@
 
 This vscode extension tries to add changelog information to the hovered `package.json` package dependency.
 
+[![Badge for version for Visual Studio Code extension JacobCofman.changelog](https://vsmarketplacebadge.apphb.com/version/JacobCofman.changelog.svg)](https://marketplace.visualstudio.com/items?itemName=JacobCofman.changelog)
+[![Installs](https://vsmarketplacebadge.apphb.com/installs/JacobCofman.changelog.svg)](https://marketplace.visualstudio.com/items?itemName=JacobCofman.changelog)
+[![Downloads](https://vsmarketplacebadge.apphb.com/downloads/JacobCofman.changelog.svg)](https://marketplace.visualstudio.com/items?itemName=JacobCofman.changelog)
+[![Rating](https://vsmarketplacebadge.apphb.com/rating/JacobCofman.changelog.svg)](https://marketplace.visualstudio.com/items?itemName=JacobCofman.changelog)
+
+[![The MIT License](https://img.shields.io/badge/license-MIT-orange.svg?color=blue&style=flat-square)](http://opensource.org/licenses/MIT)
+
 ## 🔥 Features
 
 Just hover over a `package.json` dependency as seen in this GIF and the extension tries to fetch additional changelog information.
