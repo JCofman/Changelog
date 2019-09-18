@@ -1,0 +1,39 @@
+{
+  "files": [
+    "README.md"
+  ],
+  "imageSize": 100,
+  "commit": false,
+  "contributors": [
+    {
+      "login": "JCofman",
+      "name": "Jacob Cofman",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/2118956?v=4",
+      "profile": "https://jcofman.de",
+      "contributions": [
+        "design",
+        "bug",
+        "code",
+        "content",
+        "doc",
+        "example",
+        "ideas",
+        "infra",
+        "plugin",
+        "projectManagement",
+        "review",
+        "security",
+        "tool",
+        "test",
+        "tutorial",
+        "talk",
+        "userTesting"
+      ]
+    }
+  ],
+  "contributorsPerLine": 7,
+  "projectName": "Changelog",
+  "projectOwner": "JCofman",
+  "repoType": "github",
+  "repoHost": "https://github.com"
+}
