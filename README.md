@@ -9,12 +9,12 @@ If you like to support my OSS work you could "buy me a coffee"
 or want to take a look on tools I recommend you could checkout.
 <table><tr><td align="center"><a href="https://a.paddle.com/v2/click/49831/106566?link=1947" target="_blank"><img src="https://img.stackshare.io/service/6882/687474703a2f2f692e696d6775722e636f6d2f446d6d4a56335a2e706e67.png" alt="Buy Me A Coffee" width="50" height="50" ><br /><sub><b>Sizzy</b></sub></a><br /> A super useful App when developing for different screens</a></td></tr></table>
 
+## General
 
 <p align="center">
     <img alt="changelog icon" src="https://user-images.githubusercontent.com/2118956/56217994-79ebbf80-6064-11e9-9b82-162b4d0dfa0b.png" width="300" />
 </p>
 
-## General
 
 This vscode extension tries to add changelog information to the hovered `package.json` package dependency.
 [![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#contributors)
